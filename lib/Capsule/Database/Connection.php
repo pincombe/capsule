@@ -74,11 +74,21 @@ class Connection {
     }
 
     /**
+     * Access the Resolver
+     *
+     * @return  Illuminate\Database\ConnectionResolver
+     */
+    public static function getResolver()
+    {
+        return static::$resolver;
+    }
+
+    /**
      * Sets up the ConnectionResolver and ConnectionFactory objects.
      *
      * @return void
      */
-    private static function setupResolverAndFactory() {
+    public static function setupResolverAndFactory() {
         if (is_null(self::$resolver)) {
             self::$resolver = new ConnectionResolver;
         }
