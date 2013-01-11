@@ -44,17 +44,15 @@ class Connection {
      * @return  Illuminate\Database\Connectors\Connection
      */
     public static function make($name, array $config, $default = false) {
-        self::setupResolverAndFactory();
-
-        $conn = self::$factory->make($config);
-        self::$resolver->addConnection($name, $conn);
+        $conn = self::getFactory()->make($config);
+        self::getResolver()->addConnection($name, $conn);
 
         if ($default) {
-            self::$resolver->setDefaultConnection($name);
+            self::getResolver()->setDefaultConnection($name);
         }
 
         if ( ! self::$modelInitialized) {
-            Model::setConnectionResolver(self::$resolver);
+            Model::setConnectionResolver(self::getResolver());
             self::$modelInitialized = true;
         }
 
@@ -70,30 +68,36 @@ class Connection {
      */
     public static function get($name = null)
     {
-        return static::$resolver->connection($name);
+        return static::getResolver()->connection($name);
     }
 
     /**
-     * Access the Resolver
+     * Access the ConnectionResolver
      *
      * @return  Illuminate\Database\ConnectionResolver
      */
     public static function getResolver()
     {
-        return static::$resolver;
-    }
-
-    /**
-     * Sets up the ConnectionResolver and ConnectionFactory objects.
-     *
-     * @return void
-     */
-    public static function setupResolverAndFactory() {
         if (is_null(self::$resolver)) {
             self::$resolver = new ConnectionResolver;
         }
+
+        return static::$resolver;
+    }
+
+
+    /**
+     * Access the ConnectionFactory
+     *
+     * @return  Illuminate\Database\ConnectionFactory
+     */
+    public static function getFactory()
+    {
         if (is_null(self::$factory)) {
             self::$factory = new ConnectionFactory;
         }
+
+        return static::$factory;
     }
+
 }
