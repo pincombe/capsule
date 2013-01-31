@@ -8,6 +8,7 @@
 
 namespace Capsule\Database;
 
+use RuntimeException;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\ConnectionResolver;
@@ -34,6 +35,11 @@ class Connection {
     private static $modelInitialized = false;
 
     /**
+     * @var bool  Holds whether any database connection has been made.
+     */
+    private static $connectionMade = false;
+
+    /**
      * Creates a new Connection via the Factory then adds it to the resolver.  If
      * this is the first time it is ran, it will also initialize the Eloquent
      * Model with the ConnectionResolver object so your models work.
@@ -56,6 +62,7 @@ class Connection {
             self::$modelInitialized = true;
         }
 
+        self::$connectionMade = true;
         return $conn;
     }
 
@@ -65,9 +72,13 @@ class Connection {
      *
      * @param   string  The connection name
      * @return  Illuminate\Database\Connection
+     * @throws  \RuntimeException
      */
     public static function get($name = null)
     {
+        if ( ! self::$connectionMade) {
+            throw new RuntimeException('No Database connections exist.  Please connect using Capsule\Database\Connection::make and try again.');
+        }
         return static::getResolver()->connection($name);
     }
 
