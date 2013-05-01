@@ -13,6 +13,7 @@ use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\ConnectionResolver;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Container\Container;
 
 /**
  * A simple wrapper class for the Laravel Database package.
@@ -105,7 +106,7 @@ class Connection {
     public static function getFactory()
     {
         if (is_null(self::$factory)) {
-            self::$factory = new ConnectionFactory;
+            self::$factory = new ConnectionFactory(new Container);
         }
 
         return static::$factory;
