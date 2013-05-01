@@ -20,6 +20,7 @@ Before you can make any `Capsule\DB` calls or use any Eloquent Models, you must 
         'password'  => '',
         'collation' => 'utf8_general_ci',
         'prefix'    => '',
+        'charset'    => 'utf8'
     ], true);
 
 The `make` method has the following prototype:
