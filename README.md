@@ -10,7 +10,7 @@ Only `database` for now, more to come.
 
 ### Connecting
 
-Before you can make any `Capusle\DB` calls or use any Eloquent Models, you must first make a connection using the `Capsule\Database\Connection::make` method.
+Before you can make any `Capsule\DB` calls or use any Eloquent Models, you must first make a connection using the `Capsule\Database\Connection::make` method.
 
     Capsule\Database\Connection::make('main', [
         'driver'    => 'mysql',
