@@ -5,7 +5,7 @@
  * @author Keith Pincombe <pincombe@gmail.com>
  */
 
-include_once __DIR__.'/../../../../autoload.php';
+//include_once __DIR__.'/../../../../autoload.php';
 
 class ValidationTest extends PHPUnit_Framework_TestCase
 {
