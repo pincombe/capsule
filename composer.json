@@ -12,7 +12,7 @@
         "php": ">=5.3.0",
         "illuminate/database": "4.0.*",
         "illuminate/container": "4.0.*",
-        "illuminate/validation": "dev-master",
+        "illuminate/validation": "4.0.*",
         "symfony/translation": "2.3.*",
         "symfony/http-foundation": "2.3.*"
     },
